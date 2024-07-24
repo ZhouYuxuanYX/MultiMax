@@ -31,7 +31,7 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 
 This repo is based on [Deit](https://github.com/facebookresearch/deit) and [timm](https://github.com/rwightman/pytorch-image-models).
 
-Thanks to the original authors for their work!
+Thanks to the original authors for their great work!
 
 ## References
 
