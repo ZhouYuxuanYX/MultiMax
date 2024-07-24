@@ -12,10 +12,10 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 
 ## Implementation
 1. `vision_transformer.py`
-- The modulator function in Equation 6 of our paper is implemented as Segmented Rectified Linear Unit (SeLU) function in line 101.
-- The attention layer with MultiMax is implemented at line 133 by modulating the input to SoftMax via SeLU.
-- The output layer with MultiMax is implemented at line 324 in the same way.
-- We adopt Global Average Pooling (GAP) instead of Classification Token to aggregate the spatial information for our baseline model. 
+- The modulator function in Equation 6 of our paper is implemented as **Segmented Rectified Linear Unit (SeLU)** function in line 101.
+- The **attention layer with MultiMax** is implemented at line 133 by modulating the input to SoftMax via SeLU.
+- The **output layer with MultiMax** is implemented at line 324 in the same way.
+- We adopt **Global Average Pooling (GAP)** instead of Classification Token to aggregate the spatial information for our baseline model. 
 
 ## Experiments
 ### Train a Vision Transformer with MultiMax
