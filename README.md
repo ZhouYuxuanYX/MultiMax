@@ -12,7 +12,7 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 
 ## Implementation
 1. Efficient **Segmented Rectified Linear Unit (SeLU)**
-- We implement the Max operator with 0 in Equation 6 as built-in ReLU function
+- We implement the Max operator with 0 in Equation 6 as Pytorch built-in ReLU function
 - We apply torch.jit.script decorator to fuse the remaining elementwise operations of our MultiMax, following the [official documentation of TorchScript](https://pytorch.org/docs/stable/generated/torch.jit.script.html)
 
 3. Key changes in `vision_transformer.py`
