@@ -1,6 +1,16 @@
 # MultiMax
 This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and Multi-Modal Attention Learning""
 
+## Illustration of improved multi-modality and sparsity for 3-dimensional inputs
+<p align="center">
+   <img src="fig1.png" alt="drawing" width="450"/>
+</p>
+<p align="center">
+   <b>Figure 1:</b> We evaluate SoftMax, SparseMax, EntMax, EvSoftMax and MultiMax (using the parameters of a hidden layer MultiMax trained on ImageNet directly) functions on a series of example input points v ∈ R^3 and project the resulting distribution on a simplex ∆2. Informally, the interior of the simplex stands for trimodal distributions, the edges constitute the set of bimodal distributions, and the vertices are unimodal distributions. Notably, the above figures highlight the advantage of MultiMax’s multi-modality. EntMax, Sparsemax
+and SoftMax with small temperature (blue colored line) yield a (quasi) uni-modal distribution, which ignore the second largest entry. In contrary, SoftMax with higher temperatures (green and orange colored line) fails to ignore the negative entry.
+</p>
+
+
 ## Implementation
 - The modulator function in Equation 6 of our paper is implemented as Segmented Rectified Linear Unit (SeLU) function in line 101 in vision_transformer.py.
 - The attention layer with MultiMax is implemented at line 133 in vision_transformer.py by modulating the input to SoftMax via SeLU.
