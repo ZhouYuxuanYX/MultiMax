@@ -48,7 +48,6 @@ Thanks to the original authors for their great work!
   series = 	 {Proceedings of Machine Learning Research},
   month = 	 {21--27 Jul},
   publisher =    {PMLR},
-  pdf = 	 {https://raw.githubusercontent.com/mlresearch/v235/main/assets/zhou24g/zhou24g.pdf},
   url = 	 {https://proceedings.mlr.press/v235/zhou24g.html},
 }
 
