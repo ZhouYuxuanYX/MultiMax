@@ -1,16 +1,24 @@
 # MultiMax
 This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and Multi-Modal Attention Learning""
 
-# Usage
+## Implementation
+- The modulator function in Equation 6 of our paper is implemented as Segmented Rectified Linear Unit (SeLU) function in line 101 in vision_transformer.py.
+- The attention layer with MultiMax is implemented at line 133 in vision_transformer.py by modulating the input to SoftMax via SeLU.
+- The output layer with MultiMax is implemented at line 324 vision_transformer.py in the same way.
+- We adopt Global Average Pooling (GAP) instead of Classification Token to aggregate the spatial information for our baseline model. 
 
+## Experiments
+### Train a Vision Transformer with MultiMax
+1. Replace [timm/models/vision_transformer.py](https://github.com/huggingface/pytorch-image-models/blob/main/timm/models/vision_transformer.py) with our provided vision_transformer.py
+2. Folow the training procedure of [Deit](https://github.com/facebookresearch/deit) to reproduce our experiment results 
 
-# Acknowledgements
+## Acknowledgements
 
-This repo is based on [Deit](https://github.com/facebookresearch/deit). 
+This repo is based on [Deit](https://github.com/facebookresearch/deit) and [timm](https://github.com/rwightman/pytorch-image-models).
 
 Thanks to the original authors for their work!
 
-# References
+## References
 
 ```bibtex
 
