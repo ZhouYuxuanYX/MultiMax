@@ -1,5 +1,5 @@
 # MultiMax
-This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and Multi-Modal Attention Learning""
+This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and Multi-Modal Attention Learning".
 
 ## Illustration of improved multi-modality and sparsity for 3-dimensional inputs
 <p align="center">
@@ -11,9 +11,10 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 
 
 ## Implementation
-- The modulator function in Equation 6 of our paper is implemented as Segmented Rectified Linear Unit (SeLU) function in line 101 in vision_transformer.py.
-- The attention layer with MultiMax is implemented at line 133 in vision_transformer.py by modulating the input to SoftMax via SeLU.
-- The output layer with MultiMax is implemented at line 324 vision_transformer.py in the same way.
+1. `vision_transformer.py`
+- The modulator function in Equation 6 of our paper is implemented as Segmented Rectified Linear Unit (SeLU) function in line 101.
+- The attention layer with MultiMax is implemented at line 133 by modulating the input to SoftMax via SeLU.
+- The output layer with MultiMax is implemented at line 324 in the same way.
 - We adopt Global Average Pooling (GAP) instead of Classification Token to aggregate the spatial information for our baseline model. 
 
 ## Experiments
