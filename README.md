@@ -15,7 +15,7 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 - We implement the Max operator with 0 in Equation 6 as Pytorch built-in ReLU function
 - We apply torch.jit.script decorator to fuse the remaining elementwise operations of our MultiMax, following the [official documentation of TorchScript](https://pytorch.org/docs/stable/generated/torch.jit.script.html)
 
-3. Key changes in `vision_transformer.py`
+2. Key changes in `vision_transformer.py`
 - The modulator function in Equation 6 of our paper is implemented as **Segmented Rectified Linear Unit (SeLU)** function in line 101.
 - The **attention layer with MultiMax** is implemented at line 133 by modulating the input to SoftMax via SeLU.
 - The **output layer with MultiMax** is implemented at line 324 in the same way.
