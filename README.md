@@ -10,29 +10,31 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 </p>
 
 
-## Implementation
+## Key Features
 1. Our MultiMax is **as efficient as** SoftMax:
 - We implement the Max operator with 0 in Equation 6 as Pytorch built-in ReLU function
 - We apply torch.jit.script decorator to fuse the remaining elementwise operations in Equation 6, following the [official documentation of TorchScript](https://pytorch.org/docs/stable/generated/torch.jit.script.html)
 - We term the implementation of our modulation function as **Segmented Rectified Linear Unit (SeLU)**
 
-2. Key changes in `vision_transformer.py`:
+2. Our experiment results are **fully reproducible**:
+
+## Implementation
+1. Main changes in `vision_transformer.py`:
 - The **modulator function** in Equation 6 of our paper is implemented in line 101.
 - The **attention layer with MultiMax** is implemented at line 133 by modulating the input to SoftMax via SeLU.
 - The **output layer with MultiMax** is implemented at line 324 in the same way.
 - We adopt **Global Average Pooling (GAP)** instead of Classification Token to aggregate the spatial information for our baseline model.
 
-3. Key changes in `multihead_attention.py`:
+3. Main changes in `multihead_attention.py`:
 - Include the `multi_head_attention_forward` function from the [source code](https://github.com/pytorch/pytorch/blob/main/torch/nn/functional.py) of `torch.nn.functional`.
 - The **modulator function** in Equation 6 of our paper is implemented in line 281.
 - The **attention layer with MultiMax** is implemented at line 666 by modulating the input to SoftMax via SeLU.
 
-4. Key changes in `transformer_decoder.py`:
+4. Main changes in `transformer_decoder.py`:
 - The **modulator function** in Equation 6 of our paper is implemented in line 38.
 - The **output layer with MultiMax** is implemented at line 438 by modulating the input to SoftMax via SeLU.
 
-## Experiments
-Our experiment results are **fully reproducible**:
+## Training
 
 - Train a Vision Transformer with MultiMax
    1. Replace [timm/models/vision_transformer.py](https://github.com/huggingface/pytorch-image-models/blob/main/timm/models/vision_transformer.py) with our provided `vision_transformer.py`
