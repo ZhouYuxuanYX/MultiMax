@@ -12,8 +12,14 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 </p>
 
 <p align="center">
-   <img src="gradcam_bird.jpg" alt="drawing" width="300"/>
-   <img src="gradcam_bird_multimax.jpg" alt="drawing" width="300"/>
+   <img src="gradcam_bird.jpg" alt="drawing" width="200"/>
+   <img src="gradcam_scopion.jpg" alt="drawing" width="200"/>
+   <img src="gradcam_bird_multimax.jpg" alt="drawing" width="200"/>
+   <img src="gradcam_scopion_multimax.jpg" alt="drawing" width="200"/>
+</p>
+<p align="left">
+   <b>Figure 2:</b> Grad-CAM of Deit-small using SoftMax (the two images on the left) and MultiMax (the two images on the right). 
+    The MultiMax attention maps are better localized on the objects and are close to zero in most background regions, indicating sparsity at the attention level.
 </p>
 
 ## MultiMax is **as efficient as** SoftMax
