@@ -3,7 +3,7 @@
 
 This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and Multi-Modal Attention Learning".
 
-## Illustration of improved multi-modality and sparsity
+## Improved multi-modality and sparsity
 <p align="center">
    <img src="simplex_total.png" alt="drawing" width="600"/>
 </p>
