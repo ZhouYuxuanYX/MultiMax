@@ -34,8 +34,8 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
    - The **attention layer with MultiMax** is implemented at line 666 by modulating the input to SoftMax via SeLU.
 
 4. Main changes in `transformer_decoder.py`:
-- The **modulator function** in Equation 6 of our paper is implemented in line 38.
-- The **output layer with MultiMax** is implemented at line 438 by modulating the input to SoftMax via SeLU.
+   - The **modulator function** in Equation 6 of our paper is implemented in line 38.
+   - The **output layer with MultiMax** is implemented at line 438 by modulating the input to SoftMax via SeLU.
 
 ## Training
 
