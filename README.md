@@ -12,8 +12,8 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 </p>
 
 <p align="center">
-   <img src="gradcam_bird.png" alt="drawing" width="300"/>
-   <img src="gradcam_bird_multimax.png" alt="drawing" width="300"/>
+   <img src="gradcam_bird.jpg" alt="drawing" width="300"/>
+   <img src="gradcam_bird_multimax.jpg" alt="drawing" width="300"/>
 </p>
 
 ## MultiMax is **as efficient as** SoftMax
