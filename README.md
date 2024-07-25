@@ -1,4 +1,6 @@
 # MultiMax
+[![Paper](https://img.shields.io/badge/Read%20Paper-Click%20Here-green)](https://proceedings.mlr.press/v235/zhou24g.html)
+
 This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and Multi-Modal Attention Learning".
 
 ## Illustration of improved multi-modality and sparsity for 3-dimensional inputs
