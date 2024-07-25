@@ -24,7 +24,7 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 
 ## Experiments
 ### Train a Vision Transformer with MultiMax
-1. Replace [timm/models/vision_transformer.py](https://github.com/huggingface/pytorch-image-models/blob/main/timm/models/vision_transformer.py) with our provided vision_transformer.py
+1. Replace [timm/models/vision_transformer.py](https://github.com/huggingface/pytorch-image-models/blob/main/timm/models/vision_transformer.py) with our provided `vision_transformer.py`
 2. Folow the training procedure of [Deit](https://github.com/facebookresearch/deit) to reproduce our experiment results 
 
 ## Acknowledgements
