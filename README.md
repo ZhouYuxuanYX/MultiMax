@@ -28,9 +28,14 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 - The **attention layer with MultiMax** is implemented at line 666 by modulating the input to SoftMax via SeLU.
 
 ## Experiments
-### Train a Vision Transformer with MultiMax
+
+#### Train a Vision Transformer with MultiMax
 1. Replace [timm/models/vision_transformer.py](https://github.com/huggingface/pytorch-image-models/blob/main/timm/models/vision_transformer.py) with our provided `vision_transformer.py`
-2. Folow the training procedure of [Deit](https://github.com/facebookresearch/deit) to reproduce our experiment results 
+2. Follow the training receipe of [Deit](https://github.com/facebookresearch/deit) to reproduce our experiment results 
+
+#### Train a Language Transformer with MultiMax
+1. Replace [fairseq/modules/multihead_attention.py](https://github.com/facebookresearch/fairseq/blob/main/fairseq/modules/multihead_attention.py) with our provided `multihead_attention.py`
+2. Follow the training receipe of [fairseq/examples/language_model](https://github.com/facebookresearch/fairseq/tree/main/examples/language_model) to reproduce our experiment results
 
 ## Acknowledgements
 
