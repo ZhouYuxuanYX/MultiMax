@@ -35,13 +35,13 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 Our experiment results are **fully reproducible**:
 
 - Train a Vision Transformer with MultiMax
-1. Replace [timm/models/vision_transformer.py](https://github.com/huggingface/pytorch-image-models/blob/main/timm/models/vision_transformer.py) with our provided `vision_transformer.py`
-2. Follow the training receipe of [Deit](https://github.com/facebookresearch/deit) to reproduce our experiment results 
+   1. Replace [timm/models/vision_transformer.py](https://github.com/huggingface/pytorch-image-models/blob/main/timm/models/vision_transformer.py) with our provided `vision_transformer.py`
+   2. Follow the training receipe of [Deit](https://github.com/facebookresearch/deit) to reproduce our experiment results 
 
 - Train a Language Transformer with MultiMax
-1. Replace [fairseq/modules/multihead_attention.py](https://github.com/facebookresearch/fairseq/blob/main/fairseq/modules/multihead_attention.py) with our provided `multihead_attention.py` to apply MultiMax in the attention layers.
-2. Replace [fairseq/models/transformer/transformer_decoder.py](https://github.com/facebookresearch/fairseq/blob/main/fairseq/models/transformer/transformer_decoder.py) with our provided `transformer_decoder.py` to apply MultiMax in the output layer.
-3. Follow the training receipe of [fairseq/examples/language_model](https://github.com/facebookresearch/fairseq/tree/main/examples/language_model) to reproduce our experiment results
+   1. Replace [fairseq/modules/multihead_attention.py](https://github.com/facebookresearch/fairseq/blob/main/fairseq/modules/multihead_attention.py) with our provided `multihead_attention.py` to apply MultiMax in the attention layers.
+   2. Replace [fairseq/models/transformer/transformer_decoder.py](https://github.com/facebookresearch/fairseq/blob/main/fairseq/models/transformer/transformer_decoder.py) with our provided `transformer_decoder.py` to apply MultiMax in the output layer.
+   3. Follow the training receipe of [fairseq/examples/language_model](https://github.com/facebookresearch/fairseq/tree/main/examples/language_model) to reproduce our experiment results
 
 ## Acknowledgements
 
