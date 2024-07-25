@@ -10,8 +10,7 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 </p>
 
 
-## Key Features
-1. Our MultiMax is **as efficient as** SoftMax:
+## MultiMax is **as efficient as** SoftMax
 
 As shown in Equation 4, the total amount of additional parameters for a 12 layer Transformer with 2nd-order MultiMax is just 8x12=96, because each order only contains 4 parameters, including t_b, t_d, b and d. Moreover, the modulation function σ(x) merely consists of cheap element-wise operations, i.e., multiplication with t_b and t_d, subtraction with b and d, two Max operations, addition of the two terms at each order as well as a residual addition. Thus a second-order MultiMax requires 7x2+1=15  extra Floating Point Operations (FLOPs)  for a univariant input. For Deit-small model with input length of 256, hidden dimension of 384 and 12 layers, replacing MultiMax with SoftMax in all attention layers leads to 0.0168G extra FLOPs. It is only 0.37% of the original model’s 4.6G FLOPs. 
 
@@ -23,8 +22,6 @@ In practice, customized layers often run much slower than the highly optimized b
 |||MultiMax|+0.09K(+0.0004%)|+168M (+0.37%)|0.2120 second/iteration (+12.3%)|
 |Transformer-XL-Base (18 layers)|One Billion Words|SoftMax|460M|-|1.949 second/iteration
 |||MultiMax|+0.14K (+0.00003%)|-|2.035 second/iteration (+4.4%)|
-
-3. Our experiment results are **fully reproducible**
 
 ## Implementation
 
@@ -49,6 +46,7 @@ In practice, customized layers often run much slower than the highly optimized b
    - The **output layer with MultiMax** is implemented at line 438 by modulating the input to SoftMax via SeLU.
 
 ## Training
+Our experiment results are **fully reproducible**:
 
 - Train a Vision Transformer with MultiMax
    1. Replace [timm/models/vision_transformer.py](https://github.com/huggingface/pytorch-image-models/blob/main/timm/models/vision_transformer.py) with our provided `vision_transformer.py`
