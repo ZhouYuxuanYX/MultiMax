@@ -27,6 +27,10 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 - The **modulator function** in Equation 6 of our paper is implemented in line 281.
 - The **attention layer with MultiMax** is implemented at line 666 by modulating the input to SoftMax via SeLU.
 
+4. Key changes in `transformer_decoder.py`:
+- The **modulator function** in Equation 6 of our paper is implemented in line 38.
+- The **output layer with MultiMax** is implemented at line 438 by modulating the input to SoftMax via SeLU.
+
 ## Experiments
 
 #### Train a Vision Transformer with MultiMax
@@ -34,8 +38,9 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 2. Follow the training receipe of [Deit](https://github.com/facebookresearch/deit) to reproduce our experiment results 
 
 #### Train a Language Transformer with MultiMax
-1. Replace [fairseq/modules/multihead_attention.py](https://github.com/facebookresearch/fairseq/blob/main/fairseq/modules/multihead_attention.py) with our provided `multihead_attention.py`
-2. Follow the training receipe of [fairseq/examples/language_model](https://github.com/facebookresearch/fairseq/tree/main/examples/language_model) to reproduce our experiment results
+1. Replace [fairseq/modules/multihead_attention.py](https://github.com/facebookresearch/fairseq/blob/main/fairseq/modules/multihead_attention.py) with our provided `multihead_attention.py` to apply MultiMax in the attention layers.
+2. Replace [fairseq/models/transformer/transformer_decoder.py](https://github.com/facebookresearch/fairseq/blob/main/fairseq/models/transformer/transformer_decoder.py) with our provided `transformer_decoder.py` to apply MultiMax in the output layer.
+3. Follow the training receipe of [fairseq/examples/language_model](https://github.com/facebookresearch/fairseq/tree/main/examples/language_model) to reproduce our experiment results
 
 ## Acknowledgements
 
