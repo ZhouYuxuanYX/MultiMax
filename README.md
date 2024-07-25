@@ -5,7 +5,7 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 
 ## Improved multi-modality and sparsity
 <p align="center">
-   <img src="simplex_total.png" alt="drawing" width="350"/>
+   <img src="simplex_total.png" alt="drawing" width="450"/>
    <img src="sparse-multimodal.png" alt="drawing" width="350"/>
 </p>
 <p align="left">
