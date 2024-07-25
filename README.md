@@ -22,6 +22,11 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 - The **output layer with MultiMax** is implemented at line 324 in the same way.
 - We adopt **Global Average Pooling (GAP)** instead of Classification Token to aggregate the spatial information for our baseline model.
 
+3. Key changes in `multihead_attention.py`:
+- Include the `multi_head_attention_forward` function from the [source code](https://github.com/pytorch/pytorch/blob/main/torch/nn/functional.py) of `torch.nn.functional`.
+- The **modulator function** in Equation 6 of our paper is implemented in line 281.
+- The **attention layer with MultiMax** is implemented at line 666 by modulating the input to SoftMax via SeLU.
+
 ## Experiments
 ### Train a Vision Transformer with MultiMax
 1. Replace [timm/models/vision_transformer.py](https://github.com/huggingface/pytorch-image-models/blob/main/timm/models/vision_transformer.py) with our provided `vision_transformer.py`
