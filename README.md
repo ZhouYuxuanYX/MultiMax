@@ -41,7 +41,7 @@ In practice, customized layers often run much slower than the highly optimized b
 - Implementation of MultiMax:
    - We implement the Max operator with 0 in Equation 6 as Pytorch built-in ReLU function
    - We apply torch.jit.script decorator to fuse the remaining elementwise operations in Equation 6, following the [official documentation of TorchScript](https://pytorch.org/docs/stable/generated/torch.jit.script.html)
-   - We term the implementation of our modulation function as **Segmented Rectified Linear Unit (SeLU)**
+   - We term the implementation of our modulation function as **Segmented Linear Unit (SeLU)**
 
 - Main changes in `vision_transformer.py`:
    - The **modulator function** in Equation 6 of our paper is implemented in line 101.
