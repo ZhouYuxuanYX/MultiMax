@@ -36,7 +36,7 @@ def module_name_fordropout(module_name: str) -> str:
         return module_name
 
 def SeLU(x, ranges, ts):
-    x = x + ts[0]*torch.relu(ranges[0] - x) + ts[1]*torch.relu(x - ranges[1]) \
+    x += ts[0]*torch.relu(ranges[0] - x) + ts[1]*torch.relu(x - ranges[1]) \
          + ts[2]*torch.relu(ranges[2] - x) **2 + ts[3]*torch.relu(x - ranges[3])**2
     return x
 
