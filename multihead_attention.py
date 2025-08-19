@@ -279,7 +279,7 @@ def _none_or_dtype(input: Optional[Tensor]) -> Optional[DType]:
     raise RuntimeError("input to _none_or_dtype() must be None or torch.Tensor")
 
 def SeLU(x, ranges, ts):
-    x += ts[0]*torch.relu(ranges[0] - x) + ts[1]*torch.relu(x - ranges[1]) \
+    x = x + ts[0]*torch.relu(ranges[0] - x) + ts[1]*torch.relu(x - ranges[1]) \
          + ts[2]*torch.relu(ranges[2] - x) **2 + ts[3]*torch.relu(x - ranges[3])**2
     return x
 
