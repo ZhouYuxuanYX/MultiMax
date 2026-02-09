@@ -97,14 +97,10 @@ class Mlp(nn.Module):
         x = self.drop(x)
         return x
 
-
-# Segmented Relu
+# MultiMAX V2
 @torch.jit.script
 def SeLU(x, ranges, ts):
-    # use torch.relu implementation, relu is written in c, which is fast!!!!
-    x = x + ts[0]*torch.relu(ranges[0] - x) + ts[1]*torch.relu(x - ranges[1]) \
-         + ts[2]*torch.relu(ranges[2] - x) **2 + ts[3]*torch.relu(x - ranges[3])**2
-    return x
+    return x + ts[0]*torch.relu(ranges[0] - x) + ts[1]*torch.relu(x - ranges[1])
 
 class Attention(nn.Module):
     def __init__(self, dim, num_heads=8, qkv_bias=False, qk_scale=None, attn_drop=0., proj_drop=0.):
@@ -119,6 +115,8 @@ class Attention(nn.Module):
         self.proj_drop = nn.Dropout(proj_drop)
         self.ranges = nn.Parameter(torch.zeros((4)), requires_grad=True)
         self.ts = nn.Parameter(torch.zeros((4)), requires_grad=True)
+        self.b = nn.Parameter(torch.tensor(0.0))
+        self.t = nn.Parameter(torch.tensor(1.0))
 
         trunc_normal_(self.ts, std=.02)
         trunc_normal_(self.ranges, std=.02)
@@ -130,7 +128,9 @@ class Attention(nn.Module):
 
         attn = (q @ k.transpose(-2, -1)) * self.scale
         self.score = attn
+        attn = self.t * attn + self.b
         attn = SeLU(attn, self.ranges, self.ts)
+        
 
         attn = attn.softmax(-1)
         self.attn = attn
@@ -141,6 +141,51 @@ class Attention(nn.Module):
         x = self.proj_drop(x)
         self.h = x
         return x
+
+# MultiMAX V1
+# # Segmented Relu
+# @torch.jit.script
+# def SeLU(x, ranges, ts):
+#     # use torch.relu implementation, relu is written in c, which is fast!!!!
+#     x = x + ts[0]*torch.relu(ranges[0] - x) + ts[1]*torch.relu(x - ranges[1]) \
+#          + ts[2]*torch.relu(ranges[2] - x) **2 + ts[3]*torch.relu(x - ranges[3])**2
+#     return x
+
+# class Attention(nn.Module):
+#     def __init__(self, dim, num_heads=8, qkv_bias=False, qk_scale=None, attn_drop=0., proj_drop=0.):
+#         super().__init__()
+#         self.num_heads = num_heads
+#         head_dim = dim // num_heads
+#         self.scale = qk_scale or head_dim ** -0.5
+#         self.qkv = nn.Linear(dim, dim * 3, bias=False)
+
+#         self.attn_drop = nn.Dropout(attn_drop)
+#         self.proj = nn.Linear(dim, dim)
+#         self.proj_drop = nn.Dropout(proj_drop)
+#         self.ranges = nn.Parameter(torch.zeros((4)), requires_grad=True)
+#         self.ts = nn.Parameter(torch.zeros((4)), requires_grad=True)
+
+#         trunc_normal_(self.ts, std=.02)
+#         trunc_normal_(self.ranges, std=.02)
+
+#     def forward(self, x):
+#         B, N, C = x.shape
+#         qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
+#         q, k, v = qkv[0], qkv[1], qkv[2]
+
+#         attn = (q @ k.transpose(-2, -1)) * self.scale
+#         self.score = attn
+#         attn = SeLU(attn, self.ranges, self.ts)
+
+#         attn = attn.softmax(-1)
+#         self.attn = attn
+#         attn = self.attn_drop(attn)
+
+#         x = (attn @ v).transpose(1, 2).reshape(B, N, C)
+#         x = self.proj(x)
+#         x = self.proj_drop(x)
+#         self.h = x
+#         return x
 
 
 class Block(nn.Module):
