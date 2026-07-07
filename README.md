@@ -1,4 +1,16 @@
 # MultiMax
+
+## Updates
+
+**[2026-07]** MultiMax is now integrated into [PaddleFleet](https://github.com/PaddlePaddle/PaddleFleet/commit/8bb78244217cae026672073effde3495f64c0be9), the large-scale distributed training framework by PaddlePaddle. Key highlights of the integration:
+
+- **Triton-fused SegLU kernel**: The MultiMax modulation function (SegLU) is fused directly into the chunked cross-entropy kernel (via [LigerKernel](https://github.com/linkedin/Liger-Kernel)), eliminating the need to materialize the full `[B, S, V]` logits tensor and reducing peak activation memory.
+- **Fused LM head path**: The LM head emits a 5-tuple `(hidden_states, weight, bias, multimax_ranges, multimax_ts)` so SegLU is applied inside the chunked CE kernel without a separate logits pass.
+- **Non-fused path**: For configurations without fused CE, SegLU is applied on the full logits tensor before cross-entropy with `recompute` wrapping.
+- **Diagnostic banners**: Training logs emit `[MULTIMAX-CONFIG]`, `[MULTIMAX-LMHEAD-CONFIRM]`, and `[MULTIMAX-LMHEAD-APPLIED]` banners for easy verification.
+
+---
+
 [![Paper](https://img.shields.io/badge/Read%20Paper-Click%20Here-green)](https://proceedings.mlr.press/v235/zhou24g.html)
 
 This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and Multi-Modal Attention Learning".
