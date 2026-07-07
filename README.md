@@ -4,10 +4,19 @@
 
 **[2026-07]** MultiMax is now integrated into [PaddleFleet](https://github.com/PaddlePaddle/PaddleFleet/commit/8bb78244217cae026672073effde3495f64c0be9), the large-scale distributed training framework by PaddlePaddle. Key highlights of the integration:
 
-- **Triton-fused SegLU kernel**: The MultiMax modulation function (SegLU) is fused directly into the chunked cross-entropy kernel (via [LigerKernel](https://github.com/linkedin/Liger-Kernel)), eliminating the need to materialize the full `[B, S, V]` logits tensor and reducing peak activation memory.
+- **Renamed modulation function to SegLU**: To avoid naming collision with the existing `SELU` (Scaled Exponential Linear Unit) in PyTorch and deep learning literature, the MultiMax modulation function is renamed **SegLU** (Segmented Linear Unit) in PaddleFleet.
+- **Triton-fused SegLU kernel**: SegLU is fused directly into the chunked cross-entropy kernel (via [LigerKernel](https://github.com/linkedin/Liger-Kernel)), eliminating the need to materialize the full `[B, S, V]` logits tensor and reducing peak activation memory.
 - **Fused LM head path**: The LM head emits a 5-tuple `(hidden_states, weight, bias, multimax_ranges, multimax_ts)` so SegLU is applied inside the chunked CE kernel without a separate logits pass.
 - **Non-fused path**: For configurations without fused CE, SegLU is applied on the full logits tensor before cross-entropy with `recompute` wrapping.
 - **Diagnostic banners**: Training logs emit `[MULTIMAX-CONFIG]`, `[MULTIMAX-LMHEAD-CONFIRM]`, and `[MULTIMAX-LMHEAD-APPLIED]` banners for easy verification.
+
+> **Best practices for integrating MultiMax into LLM pretraining**
+>
+> **Optimizer**: Use Adam (or AdamW) for MultiMax scalar parameters. Muon is designed for matrix-shaped weights (it applies Newton-Schulz orthogonalization) and is not applicable to scalar or 1-D parameters — the convention in Muon-based training is to route all non-matrix parameters to Adam.
+>
+> **Weight decay**: Exclude MultiMax scalar parameters (`t_b`, `t_d`, `b`, `d`) from the weight decay list. This follows the standard convention of not applying weight decay to bias and 1-D parameters (e.g., HuggingFace Transformers does this by default). If your training framework does not handle this automatically, add these parameters explicitly to the no-decay group in your optimizer parameter groups.
+>
+> **Compatibility with global gradient norm clipping**: MultiMax scalar parameters are shared across the full vocabulary, so their gradients naturally accumulate over all vocabulary entries and their gradient magnitude scales as `~sqrt(V)`. Under global gradient norm clipping (`ClipGradByGlobalNorm` / `clip_grad_norm_`), this can cause frequent clipping that slows down backbone learning. Two solutions: (1) Normalize the MultiMax gradient norm by `1/sqrt(vocab_size)` in the clip path — this brings it to a per-element scale comparable to the backbone, and since Adam is invariant to constant gradient scaling, the effective parameter updates are unchanged. (2) Place MultiMax parameters in a separate clip group with its own norm threshold, fully decoupled from the backbone gradient norm.
 
 ---
 
