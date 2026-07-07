@@ -1,5 +1,9 @@
 # MultiMax
 
+[![Paper](https://img.shields.io/badge/Read%20Paper-Click%20Here-green)](https://proceedings.mlr.press/v235/zhou24g.html)
+
+This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and Multi-Modal Attention Learning".
+
 ## Updates
 
 **[2026-07]** MultiMax is now integrated into [PaddleFleet](https://github.com/PaddlePaddle/PaddleFleet/commit/8bb78244217cae026672073effde3495f64c0be9), the large-scale distributed training framework by PaddlePaddle. Key highlights of the integration:
@@ -17,12 +21,6 @@
 > **Weight decay**: Exclude MultiMax scalar parameters (`multimax_ts`, `multimax_ranges`) from the weight decay list. This follows the standard convention of not applying weight decay to bias and 1-D parameters (e.g., HuggingFace Transformers does this by default). If your training framework does not handle this automatically, add these parameters explicitly to the no-decay group in your optimizer parameter groups.
 >
 > **Compatibility with global gradient norm clipping**: MultiMax scalar parameters are shared across the full vocabulary, so their gradients naturally accumulate over all vocabulary entries and their gradient magnitude scales as `~sqrt(V)`. Under global gradient norm clipping (`ClipGradByGlobalNorm` / `clip_grad_norm_`), this can cause frequent clipping that slows down backbone learning. Two solutions: (1) Normalize the MultiMax gradient norm by `1/sqrt(vocab_size)` in the clip path — this brings it to a per-element scale comparable to the backbone, and since Adam is invariant to constant gradient scaling, the effective parameter updates are unchanged. (2) Place MultiMax parameters in a separate clip group with its own norm threshold, fully decoupled from the backbone gradient norm.
-
----
-
-[![Paper](https://img.shields.io/badge/Read%20Paper-Click%20Here-green)](https://proceedings.mlr.press/v235/zhou24g.html)
-
-This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and Multi-Modal Attention Learning".
 
 ## Improved multi-modality and sparsity
 <p align="center">
