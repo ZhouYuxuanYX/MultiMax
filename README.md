@@ -6,6 +6,8 @@ This is the official implementation of our ICML 2024 paper "MultiMax: Sparse and
 
 ## Updates
 
+**[2026-11]** Blog post: [One Knob Is Not Enough: How MultiMax Breaks the SoftMax Temperature Trade-off](https://zhouyuxuanyx.github.io/2026/11/05/one-knob-is-not-enough-softmax-temperature-vs-multimax.html). It explains MultiMax more intuitively than the paper and reports its gains in LLM pretraining.
+
 **[2026-07]** MultiMax is now integrated into [PaddleFleet](https://github.com/PaddlePaddle/PaddleFleet/commit/8bb78244217cae026672073effde3495f64c0be9), the large-scale distributed training framework by PaddlePaddle. Key highlights of the integration:
 
 - **Renamed modulation function to SegLU**: To avoid naming collision with the existing `SELU` (Scaled Exponential Linear Unit) in PyTorch and deep learning literature, the MultiMax modulation function is renamed **SegLU** (Segmented Linear Unit) in PaddleFleet.
